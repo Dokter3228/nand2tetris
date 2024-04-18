@@ -1,0 +1,36 @@
+| a | b |sel|out|
+| 0 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 0 |
+| 0 | 1 | 0 | 0 |
+| 0 | 1 | 1 | 1 |
+| 1 | 0 | 0 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | 0 | 1 |
+| 1 | 1 | 1 | 1 |
+
+
+(!a && b && sel) || (a && !b && !sel) || (a && b && !sel) || (a && b && sel)
+
+Not(in=a, out=notA);
+And(a=notA, b=b, out=out1);
+And(a=out1, b=sel, out=outFinal1);
+
+
+Not(in=b, out=notB);
+Not(in=sel, out=notSel);
+And(a=notB, b=a, out=out1);
+And(a=out1, b=notSel, out=outFinal2);
+
+
+Not(in=sel, out=notSel2);
+And(a=notSel2, b=a, out=out1);
+And(a=out1, b=b, out=outFinal3);
+
+
+And(a=a, b=b, out=out1);
+And(a=out1, b=sel, out=outFinal4);
+
+Or(a=outFinal1, b=outFinal2, out=orOut1);
+Or(a=outFinal3, b=outFinal4, out=orOut2);
+Or(a=orOut1, b=orOut2, out=out);
+
